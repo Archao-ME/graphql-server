@@ -1,0 +1,36 @@
+{
+  "apps": [
+    {
+      "name": "graphql-server",
+      "script": "bin/www",
+      "log_date_format": "YYYY-MM-DD HH:mm:SS",
+      "merge_logs": true,
+      "exec_mode": "cluster",
+      "instances": 2,
+      "max_restarts": 15000,
+      "max_memory_restart": "5G",
+      "watch": true,
+      "ignore_watch": [
+        "node_modules",
+        "logs",
+        ".idea"
+      ],
+      "env": {
+        "NODE_ENV": "development",
+        "PORT": 1088
+      },
+      "env_test": {
+        "NODE_ENV": "test",
+        "PORT": 1088
+      },
+      "env_preProduction": {
+        "NODE_ENV": "preproduction",
+        "PORT": 1088
+      },
+      "env_production": {
+        "NODE_ENV": "production",
+        "PORT": 1088
+      }
+    }
+  ]
+}
