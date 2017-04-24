@@ -9,12 +9,15 @@ const typeDefs = `
     id: ID
     content: String,
   }
-
   type Query {
     hello: Hello
   }
+  type Mutation {
+    changeWord(content: String!): Hello
+  }
   schema {
     query: Query
+    mutation: Mutation
   }
 `;
 
@@ -25,6 +28,14 @@ const resolvers = {
       return result;
     },
   },
+  Mutation: {
+    changeWord(root,{content}){
+      return {
+        id: 2,
+        content: content
+      }
+    }
+  }
 };
 
 const schema = makeExecutableSchema({
