@@ -5,10 +5,20 @@ const hello = {
 
 const getHello = () => {
   return new Promise(resolve => {
-    resolve(hello);
-  });
-};
+    resolve(hello)
+  })
+}
+
+const changeWorld = (content) => {
+  return new Promise(resolve => {
+    resolve({
+      id: 123,
+      content
+    })
+  })
+}
 
 module.exports = {
-  getHello
-};
+  getHello,
+  changeWorld
+}

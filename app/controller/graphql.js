@@ -1,13 +1,13 @@
 const Router = require('koa-router');
 const graphql = new Router();
-const {makeExecutableSchema, addErrorLoggingToSchema} = require('graphql-tools');
+const {makeExecutableSchema, addErrorLoggingToSchema, SchemaError} = require('graphql-tools');
 const {graphqlKoa, graphiqlKoa} = require('graphql-server-koa');
-const {getHello} = require('../service/hello');
+const {getHello,changeWorld} = require('../service/hello');
 
 const typeDefs = `
   type Hello {
     id: ID
-    content: String,
+    content: String
   }
   type Query {
     hello: Hello
@@ -30,10 +30,13 @@ const resolvers = {
   },
   Mutation: {
     changeWord(root,{content}){
-      return {
-        id: 2,
-        content: content
+      if(content == 'world'){
+        return new SchemaError({
+          errorCode: 1223,
+          msg: '这个world已经存在了'
+        })
       }
+      return changeWorld(content);
     }
   }
 };
