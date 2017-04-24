@@ -4,9 +4,6 @@ const {makeExecutableSchema, addErrorLoggingToSchema} = require('graphql-tools')
 const {graphqlKoa, graphiqlKoa} = require('graphql-server-koa');
 const {getHello} = require('../service/hello');
 
-
-const Tags = require('./connectors');
-
 const typeDefs = `
   type Hello {
     id: ID
@@ -20,21 +17,19 @@ const typeDefs = `
     query: Query
   }
 `;
-let word = 'Hello world!';
-const resolver = {
+
+const resolvers = {
   Query: {
-    hello(root, args, context) {
-      return {
-        id: '123',
-        content: 'ewqrwerwerwerwer'
-      };
+    async hello(root, args, context) {
+      const result = await getHello();
+      return result;
     },
   },
 };
 
 const schema = makeExecutableSchema({
   typeDefs,
-  resolver,
+  resolvers,
 });
 
 const logger = {log: (e) => console.error(e.stack)};

@@ -4,7 +4,6 @@ const hello = {
 }
 
 const getHello = () => {
-  console.log(hello)
   return new Promise(resolve => {
     resolve(hello);
   });
